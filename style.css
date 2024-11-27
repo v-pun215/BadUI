@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body {
+    background-color: #f0f0f0;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    cursor:none;
+}
+header {
+    color: black;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 35px;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+.card {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    width:30%;
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: 0.15s ease-in-out;
+}
+.card:hover {
+    transform: scale(1.025);
+}
+.card h1 {
+    font-size: 35px;
+    margin: 0;
+    padding: 0;
+}
+footer {
+    color: black;
+    text-align: center;
+    padding: 10px 0;
+    bottom: 0;
+    width: 100%;
+}
+footer a {
+    color: #0071e3;
+    text-decoration: underline;
+}
+.content {
+    background-color: white;
+    padding: 20px;
+    width:90%;
+    margin: 20px;
+    border-radius: 10px;
+    height:60vh;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+}
+.content h1 {
+    font-size: 35px;
+    margin-top:2vh;
+    padding: 0;
+    font-weight: 500;
+}
+.input {
+    width: 90%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 30px;
+    font-family: 'inter', sans-serif;
+    letter-spacing: 2px;
+    text-align: center;
+}
+.input:focus {
+    outline: none;
+}
+.main-section {
+    width:30%;
+    margin: 0 auto;
+    text-align: center;
+}
+.btn {
+    background-color: #0071e3;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 30px;
+    margin-top: 20px;
+    margin-left:20px;
+    font-family: 'Inter', sans-serif;
+    transition: 0.15s ease-in-out;
+}
+.btn:hover {
+    background-color: #0056b3;
+}
+.advanced {
+    color:black;
+    text-decoration: none;
+    font-size: 18px;
+    margin-top:3vh;
+    display:block;
+    cursor: pointer;
+}
+.sub {
+    color:white;
+    background-color: black;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    transition: 0.15s ease-in-out;
+}
+.sub:hover {
+    background-color: #333;
+}
+.danger {
+    background-color: rgb(209, 0, 0);
+}
+.danger:hover {
+    background-color: rgb(150, 0, 0);
+}
+#advanced-buttons {
+    display: none;
+    margin-top: -20px;
+}
+.guesses {
+    margin-top: 10px;
+    background-color: #dfdfdf;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.guesses p {
+    margin-bottom:20px;
+    margin-top:0;
+    padding: 0;
+    font-size: 23px;
+}
+button {
+    cursor: pointer;
+}
+.cancel {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border:1px solid black;
+    font-size: 28px;
+    margin-top: 20px;
+    margin-left:20px;
+    font-family: 'Inter', sans-serif;
+    transition: 0.15s ease-in-out;
+}
+.letters {
+    display:none;
+}
+.login-container {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 0 auto;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    transition: 0.15s ease-in-out;
+}
+
+#login-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#login-form input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#login-form button {
+    padding: 10px;
+    background-color: #0071e3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#login-form button:hover {
+    background-color: #0056b3;
+}
+/* I'm very proud of this! */
+a {
+    cursor: pointer !important;
+}
+p {
+    cursor: text;
+}
+#customCursor {
+    position: fixed;
+    pointer-events: none;
+    width: 30px;
+    height: 30px;
+    transform-origin: center;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    will-change: transform;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+    display: none;
+}
+
+#customCursor.hidden {
+    opacity: 0;
+}
