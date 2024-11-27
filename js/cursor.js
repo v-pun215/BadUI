@@ -1,74 +1,68 @@
-const cursor = document.getElementById('customCursor');
-let lastX = 0;
-let lastY = 0;
-let targetX = 0;
-let targetY = 0;
-let currentX = 0;
-let currentY = 0;
-let currentRotation = 0;
-let targetRotation = 0;
+let timer;
+let startTime;
 
-const SMOOTHING = 0.2;
-const MOVEMENT_THRESHOLD = 0.1;
-const MAX_ROTATION_SPEED = 10;
-
-function lerp(start, end, factor) {
-    return start + (end - start) * factor;
+function startGame() {
+    document.getElementById("startbtn").style.display = "none";
+    document.getElementById("letters").style.display = "block";
+    document.getElementById("letters").style.marginTop = "30px";
+    startTimer();
 }
 
-function angleDifference(angle1, angle2) {
-    const diff = ((angle2 - angle1 + 180) % 360) - 180;
-    return diff < -180 ? diff + 360 : diff;
+function startTimer() {
+    startTime = Date.now();
+    timer = setTimeout(function() {
+        document.getElementById("status").style.color = "red";
+        document.getElementById("status").innerHTML = "Are you even trying? Time's up kid. Click here to reset.";
+        document.getElementById("status").style.cursor = "pointer";
+        document.getElementById("status").onclick = resetGame;
+        disableButtons();
+    }, 2000);
 }
 
-function updateCursor(e) {
-    targetX = e.clientX;
-    targetY = e.clientY;
-
-    // Check if the target element is interactive
-    const targetElement = e.target;
-    const isInteractive = targetElement.matches('a, button, input, textarea, select, [role="button"], [contenteditable="true"], span, p, li, ul, pre, code, iframe, lite-youtube, img');
-    
-    // Toggle cursor visibility
-    cursor.classList.toggle('hidden', isInteractive);
-    cursor.style.display = "block";
-    
-    cursor.style.translate = `${targetX}px ${targetY}px`;
+function resetGame() {
+    location.reload(); // Reload the page to reset the game
 }
 
-function animate() {
-    currentX = lerp(currentX, targetX - 10, SMOOTHING);
-    currentY = lerp(currentY, targetY - 10, SMOOTHING);
-    
-    const deltaX = targetX - lastX;
-    const deltaY = targetY - lastY;
-    const movement = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+function disableButtons() {
+    const buttons = document.querySelectorAll(".cancel");
+    buttons.forEach(button => button.disabled = true);
+}
 
-    if (movement > MOVEMENT_THRESHOLD) {
-    const angle = Math.atan2(deltaY, deltaX) * 180 / Math.PI + 90;
-    targetRotation = angle;
-    
-    const rotationDiff = angleDifference(currentRotation, targetRotation);
-    
-    const rotationDelta = Math.min(
-        Math.abs(rotationDiff),
-        MAX_ROTATION_SPEED
-    ) * Math.sign(rotationDiff);
-    
-    currentRotation += rotationDelta;
-    currentRotation = ((currentRotation + 180) % 360) - 180;
+document.addEventListener("DOMContentLoaded", function() {
+    const lettersContainer = document.getElementById("letters");
+    const buttons = Array.from(lettersContainer.getElementsByClassName("cancel"));
+    shuffle(buttons);
+    buttons.forEach(button => lettersContainer.appendChild(button));
+
+    buttons.forEach(button => {
+        button.addEventListener("click", function() {
+            const finalCancellation = document.getElementById("final_cancellation");
+            document.getElementById("letters").style.marginTop = "0px";
+            finalCancellation.textContent += button.textContent;
+            button.style.display = "none"; // Make the button disappear
+
+            if (finalCancellation.textContent === "CANCEL") {
+                clearTimeout(timer);
+                document.getElementById("status").style.color = "green";
+                document.getElementById("status").innerHTML = "Cancelled (easter egg: High Seas!). Click here to reset.";
+                document.getElementById("status").style.cursor = "pointer";
+                document.getElementById("status").onclick = resetGame;
+                disableButtons();
+            } else if (finalCancellation.textContent.length === buttons.length && finalCancellation.textContent !== "CANCEL") {
+                clearTimeout(timer);
+                document.getElementById("status").style.color = "red";
+                document.getElementById("status").innerHTML = "Are you even trying? Click here to reset.";
+                document.getElementById("status").style.cursor = "pointer";
+                document.getElementById("status").onclick = resetGame;
+                disableButtons();
+            }
+        });
+    });
+});
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
     }
-
-    cursor.style.rotate = `${currentRotation}deg`;
-
-    lastX = targetX;
-    lastY = targetY;
-
-    requestAnimationFrame(animate);
 }
-
-// Start animation loop
-requestAnimationFrame(animate);
-
-// Add event listener
-document.addEventListener('mousemove', updateCursor);
