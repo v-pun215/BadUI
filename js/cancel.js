@@ -15,11 +15,17 @@ function startTimer() {
         document.getElementById("status").innerHTML = "Are you even trying? Time's up kid. Click here to reset.";
         document.getElementById("status").style.cursor = "pointer";
         document.getElementById("status").onclick = resetGame;
+        disableButtons();
     }, 2000);
 }
 
 function resetGame() {
     location.reload(); // Reload the page to reset the game
+}
+
+function disableButtons() {
+    const buttons = document.querySelectorAll(".cancel");
+    buttons.forEach(button => button.disabled = true);
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -41,12 +47,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById("status").innerHTML = "Cancelled (easter egg: High Seas!). Click here to reset.";
                 document.getElementById("status").style.cursor = "pointer";
                 document.getElementById("status").onclick = resetGame;
+                disableButtons();
             } else if (finalCancellation.textContent.length === buttons.length && finalCancellation.textContent !== "CANCEL") {
                 clearTimeout(timer);
                 document.getElementById("status").style.color = "red";
                 document.getElementById("status").innerHTML = "Are you even trying? Click here to reset.";
                 document.getElementById("status").style.cursor = "pointer";
                 document.getElementById("status").onclick = resetGame;
+                disableButtons();
             }
         });
     });
